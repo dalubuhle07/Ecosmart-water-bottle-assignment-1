@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>EcoSmart Water Bottle</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Page body styling - it is responsible for how the body appears to the user by adding basic colors and image as background */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-image: url('https://acegif.com/wp-content/uploads/water.gif');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Sticky Navbar styling - styles the navigation bar which appears at the top of the page */
+        header {
+            position: sticky;
+            top: 0;
+            background: #87CEEB;
+            padding: 10px 0;
+            z-index: 999;
+			background-size: cover;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Main Section layout - adds CSS to the main section of the website */
+        .main-section {
+            min-height: 100vh;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            background: #87CEEB;
+        }
+
+        /* The image of the product that is to be sold on the website */
+        .product-image {
+            width: 300px;
+            height: auto;
+            margin: 20px;
+        }
+
+        .product-info {
+            max-width: 400px;
+            margin: 20px;
+        }
+
+        .buy-button {
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .buy-button:hover {
+            background: #219150;
+        }
+
+        .price-display {
+            margin-top: 15px;
+            font-size: 20px;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        /* Color options container */
+        .color-options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        /* Style for each color image */
+        .color-image {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effect for the images that are placed in the modal */
+        .color-image:hover {
+            transform: scale(1.2);
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Features and Pricing Sections in the header */
+        section {
+            padding: 40px;
+            text-align: center;
+        }
+
+        /* Contact Form in the footer */
+        footer {
+            background: #87CEEB;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        #contactForm input, #contactForm textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background: #27ae60;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The code displays links to the following Sections in the landing page: Home, Features, Pricing and Contact.
+         It allows the user to easily find the sections by clicking on them in the header. -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">EcoSmart</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- This section displays the main product, price, and a buy button. Linked to 'home' in the header. -->
+    <section id="home" class="main-section">
+        <div class="content">
+            <img src="background.jpg" alt="EcoSmart Bottle" class="product-image">
+            <div class="product-info">
+                <h1>EcoSmart Water Bottle</h1>
+                <p>Reduce pollution with our eco-friendly smart solution!</p>
+                <button id="buyNowBtn" class="buy-button">Buy Now</button>
+                <div class="price-display">
+                    Total Price: <span id="totalPrice">R250</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- This is a modal that pops up when the user clicks "Buy Now". It includes color selection and additional features. -->
+    <div id="buyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Select Your Bottle</h2>
+
+            <form id="purchaseForm">
+                <!-- Dropdown for Color Selection -->
+                <label for="color">Choose a Color:</label><br>
+                <select id="colorSelect">
+                    <option value="10">SILVER-GRAY - R10</option>
+                    <option value="20">OLIVE GREEN - R20</option>
+                    <option value="30">COPPER - R30</option>
+                </select><br><br>
+
+                <!-- Color Image Options -->
+                <div class="color-options">
+                    <img src="greyy.jpg" alt="Silver Gray" class="color-image" data-price="10" data-color="silver">
+                    <img src="green.jpg" alt="Olive Green" class="color-image" data-price="20" data-color="green">
+                    <img src="copper.jpg" alt="Copper" class="color-image" data-price="30" data-color="copper">
+                </div><br><br>
+
+                <!-- Additional Features -->
+                <label>Additional Features:</label><br>
+                <input type="checkbox" id="engraving" value="50"> Custom Engraving (+R50)<br>
+                <input type="checkbox" id="packaging" value="15"> Gift Packaging (+R15)<br><br>
+
+                <h3>Total: <span id="totalPrice">R250</span></h3>
+
+                <button type="submit" class="buy-button">Confirm Purchase</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Features that the water bottle has -->
+    <section id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>Maintains the same temperature</li>
+            <li>Eco-Friendly Materials</li>
+            <li>Leak-Proof</li>
+        </ul>
+    </section>
+
+    <!-- Initial price of the water bottle without any additional features -->
+    <section id="pricing">
+        <h2>Pricing</h2>
+        <p>Base Price: R250</p>
+    </section>
+
+    <!-- Contact form section allowing users to message the company. Prevents submitting blank info. -->
+    <footer id="contact">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Name" required><br>
+            <input type="email" id="email" placeholder="Email" required><br>
+            <textarea id="message" placeholder="Message" required></textarea><br>
+            <label>
+                <input type="checkbox" id="terms"> I agree to the Terms and Conditions
+            </label><br><br>
+            <button type="submit" class="submit-button">Send Message</button>
+        </form>
+    </footer>
+
+    <!-- Javascript for interactive functionality in the landing page -->
+    <script>
+        // Get elements
+        const buyNowBtn = document.getElementById('buyNowBtn');
+        const buyModal = document.getElementById('buyModal');
+        const closeModal = document.querySelector('.close');
+        const colorSelect = document.getElementById('colorSelect');
+        const engravingCheckbox = document.getElementById('engraving');
+        const packagingCheckbox = document.getElementById('packaging');
+        const totalPriceDisplay = document.getElementById('totalPrice');
+
+        let basePrice = 250;
+
+        // Open Modal
+        buyNowBtn.onclick = function() {
+            buyModal.style.display = 'flex';
+        }
+
+        // Close Modal
+        closeModal.onclick = function() {
+            buyModal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside the modal
+        window.onclick = function(event) {
+            if (event.target == buyModal) {
+                buyModal.style.display = "none";
+            }
+        }
+
+        // Price calculator calculates the price of the bottle when additional features are added
+        function calculatePrice() {
+            let colorPrice = parseInt(colorSelect.value);
+            let engravingPrice = engravingCheckbox.checked ? parseInt(engravingCheckbox.value) : 0;
+            let packagingPrice = packagingCheckbox.checked ? parseInt(packagingCheckbox.value) : 0;
+            let total = basePrice + colorPrice + engravingPrice + packagingPrice;
+
+            totalPriceDisplay.textContent = `R${total}`;
+        }
+
+        // Update price on input changes
+        colorSelect.addEventListener('change', calculatePrice);
+        engravingCheckbox.addEventListener('change', calculatePrice);
+        packagingCheckbox.addEventListener('change', calculatePrice);
+
+        // Contact form validation
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            if (!document.getElementById('terms').checked) {
+                alert('You must agree to the Terms and Conditions before submitting.');
+                event.preventDefault();
+            }
+        });
+
+        // Confirm Purchase message
+        document.getElementById('purchaseForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Thank you for your purchase!');
+            buyModal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
